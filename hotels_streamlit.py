@@ -59,30 +59,30 @@ else:
     query =str(user_input)
 
   # Find the closest 5 sentences of the corpus for each query sentence based on cosine similarity
-top_k = min(5, len(corpus))
- 
-query_embedding = model.encode(query, convert_to_tensor=True)
-  
-  # We use cosine-similarity and torch.topk to find the highest 5 scores
-cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
-top_results = torch.topk(cos_scores, k=top_k)
-  
-  
-#print("\n\n======================\n\n")
-#print("Query:", query)
-#print("\nTop 5 most similar sentences in corpus:")
-  
-for score, idx in zip(top_results[0], top_results[1]):
-    st.write('(Score: {:.4f})'.format(score))
-     # print("(Score: {:.4f})".format(score))
-     # print(corpus[idx], "(Score: {:.4f})".format(score))
-    row_dict = reviews_combined.loc[reviews_combined['all_review']== corpus[idx]]
-    st.write("Hotel:  " , row_dict['Hotel'].to_string(index=False), "\n")
-  #print("Hotel:  " , row_dict['Hotel'] , "\n")
-    st.write("Hotel Summary:  " , row_dict['summary'].values, "\n")
-      #print("Hotel Summary:  " , row_dict['summary'] , "\n")
-  # for idx, distance in results[0:closest_n]:
-  #     print("Score:   ", "(Score: %.4f)" % (1-distance) , "\n" )
-  #     print("Paragraph:   ", corpus[idx].strip(), "\n" )
-  #     row_dict = df.loc[df['all_review']== corpus[idx]]
-  #     print("paper_id:  " , row_dict['Hotel'] , "\n")
+    top_k = min(5, len(corpus))
+     
+    query_embedding = model.encode(query, convert_to_tensor=True)
+      
+      # We use cosine-similarity and torch.topk to find the highest 5 scores
+    cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
+    top_results = torch.topk(cos_scores, k=top_k)
+      
+      
+    #print("\n\n======================\n\n")
+    #print("Query:", query)
+    #print("\nTop 5 most similar sentences in corpus:")
+      
+    for score, idx in zip(top_results[0], top_results[1]):
+        st.write('(Score: {:.4f})'.format(score))
+         # print("(Score: {:.4f})".format(score))
+         # print(corpus[idx], "(Score: {:.4f})".format(score))
+        row_dict = reviews_combined.loc[reviews_combined['all_review']== corpus[idx]]
+        st.write("Hotel:  " , row_dict['Hotel'].to_string(index=False), "\n")
+      #print("Hotel:  " , row_dict['Hotel'] , "\n")
+        st.write("Hotel Summary:  " , row_dict['summary'].values, "\n")
+          #print("Hotel Summary:  " , row_dict['summary'] , "\n")
+      # for idx, distance in results[0:closest_n]:
+      #     print("Score:   ", "(Score: %.4f)" % (1-distance) , "\n" )
+      #     print("Paragraph:   ", corpus[idx].strip(), "\n" )
+      #     row_dict = df.loc[df['all_review']== corpus[idx]]
+      #     print("paper_id:  " , row_dict['Hotel'] , "\n")
